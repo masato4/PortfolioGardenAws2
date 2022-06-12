@@ -1,0 +1,96 @@
+<%# javascript_pack_tag 'posts' %>
+  <html>
+      <!--<header class="page-header wrapper">
+        <%= link_to tweets_path do%>
+          <h1 class="after_login">PORTFOLIO GARDEN</h1>
+        <% end %>
+        <nav>
+          <ul class="main-nav">
+            <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+            <% if user_signed_in? %>
+            <li><%= link_to "POST", new_tweet_path %></li>
+            <li class="header-icon">
+            <%= link_to user_path(current_user.id) do %>
+              <% if current_user.image?  %>
+                  <%= image_tag current_user.image_url, size: '50x50', fallback: "no_image.png", class: "mb-3 profile-img" if current_user.image? %>
+              <% else %>
+                <%= image_tag "default.png", size: '50x50' %>
+              <% end %>
+            <% end %>
+            </li>
+          </ul>
+          <% end %>
+        </nav>
+      </header>-->
+    <main>
+      <h3>POST</h3>
+      <%= form_for @tweet do |f| %>
+      <%= f.label :title %>
+
+
+      <div>
+        <%= f.text_field :title, :size => 30, class:'form-size-2' %>
+      </div>
+      <br>
+      <%= f.label :language %>
+      <div class='form-group list--3'>
+          <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+              <div class='form-check'>
+                  <%= tag.label class: 'form-check-label' do %>
+                      <%= tag.check_box class: 'form-check-input' %>
+                      <%= tag.text %>
+                  <% end %>
+              </div>
+          <% end %>
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="field">
+            <%= f.label :concept %>
+            <br>
+            <%= f.text_area :body, size: "70x15", maxlength: "1000", placeholder: "紹介文を書く", class:'form-size-2' %>
+          </div>
+        </div>
+      </div>
+      <!--<div class="field">
+        <%= f.label :image %>
+        <%= f.file_field :image %>
+      </div>-->
+      <br>
+      <div class="form-group mb-3">
+        <%= f.label :thumbnail, class: "label" %>
+        <br>
+        <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png', id: "image-select-btn" %>
+      </div>
+      <div class="post-image-prev">
+        <% if @tweet.image? %>
+          <%= image_tag @tweet.image.url, alt: "post-image", id: "img_prev", size: "320x180"%>
+        <% else %>
+          <%= image_tag "post-default.png", alt: "post-image", id: :img_prev, size: "320x180" %>
+        <% end %>
+      </div>
+      <br>
+
+      <%= f.label :url %>
+      <div class="mb-3">
+          <div class="col-md-4">
+              <%= f.text_field :tweet_url, :size => 30, class:'form-size-2' %>
+          </div>
+      </div>
+
+      <div class="field">
+        <%= f.label :graduates %>
+        <br>
+        <%= f.select :language,
+        [["23卒", "23卒"],
+        ["24卒", "24卒"],
+        ["25卒", "25卒"]], include_blank: "選択して下さい" %>
+      </div>
+      <br>
+      <input type="button" onclick="submit();" value="post" class="btn btn-border mb-3"/>
+      <% end %>
+      <%= link_to "PORTFOLIO", tweets_path , class: 'anti-line'%>
+    </main>
+  </html>

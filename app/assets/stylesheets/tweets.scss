@@ -1,0 +1,24 @@
+// Place all the styles related to the tweets controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+// .form-group {
+//   display: flex;
+//   flex-flow: column wrap;
+//   height: 200px;
+//   width: 400px;
+// }
+
+.url {}
+
+// .list--3 {
+//   column-count: 2;
+// }
+
+.list--3 {
+  display: flex;
+  flex-flow: column wrap;
+  height: 200px;
+  width: 400px;
+}
+

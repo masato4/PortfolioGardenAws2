@@ -1,0 +1,169 @@
+  <html>
+    <main>
+      </p>
+      <h2>PORTFOLIO詳細</h2>
+      <div class="tweet">
+        <p>
+          <% if user_signed_in? %>
+            <%= link_to user_path(@tweet.user.id) ,class: 'user-icon anti-line' do %>
+              <% if @tweet.user.image? %>
+                <%= image_tag @tweet.user.image_url, size: '50x50', fallback: "no_image.png", class: "mb-3 profile-img" if @tweet.user.image? %>
+              <% else %>
+                <%= image_tag "default.png", size: '50x50' ,class: "mb-3" %>
+              <% end %>
+              <span class="name-font-tweet">
+                <%= @tweet.user.name %>
+              </span>
+            <% end %>
+          <% else %>
+            <%= link_to new_user_session_path,class: 'user-icon anti-line' do%>
+              <% if @tweet.user.image? %>
+                <%= image_tag @tweet.user.image_url, size: '50x50', fallback: "no_image.png", class: "mb-3 profile-img" if @tweet.user.image? %>
+              <% else %>
+                <%= image_tag "default.png", size: '50x50' ,class: "mb-3"%>
+              <% end %>
+              <span class="name-font-tweet">
+                <%= @tweet.user.name %>
+              </span>
+            <% end %>
+          <% end %>
+        </p>
+        <h3><%= @tweet.title %></h3>
+        <% if @tweet.image?  %>
+          <span class="tweet-image-line">
+          <%= image_tag @tweet.image_url, size: "320x180", class: 'image-down' if @tweet.image? %>
+          </span>
+        <% else %>
+          <%= image_tag "post-default.png", alt: "post-image", id: :img_prev, size: "320x180"%>
+        <% end %>
+        <br>
+        <% @tweet.tags.each do |tag| %>
+            <span class="tag-element-border"><%= tag.name %></span>
+        <% end %>
+        <%= @tweet.language %>
+        <% if user_signed_in? %>
+            <% if current_user.already_liked?(@tweet) %>
+                <%= link_to tweet_like_path(@tweet), method: :delete ,class: 'anti-line' do %>
+                  <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+                <% end %>
+            <% else %>
+                <%= link_to tweet_likes_path(@tweet), method: :post ,class: 'anti-line' do %>
+                  <i class="far fa-heart"></i><%= @tweet.likes.count %>
+                <% end %>
+            <% end %>
+        <% else %>
+            <%= link_to new_user_session_path ,class: 'anti-line' do %>
+              <i class="far fa-heart"></i><%= @tweet.likes.count %>
+            <% end %>
+        <% end %>
+        <% if user_signed_in? && current_user.id == @tweet.user_id %>
+          <%= link_to "編集する", edit_tweet_path(@tweet.id) ,class: 'anti-line' %>
+          <%= link_to "削除する", tweet_path(@tweet.id), method: :delete ,class: 'anti-line' %>
+        <% end %>
+        <p><%= @tweet.created_at %></p>
+        <p class="anti-margin-bottom">concept</p>
+        <div class="body-design mb-3">
+          <p><%=safe_join(@tweet.body.split("\n"),tag(:br))%></p>
+        </div>
+        <p class="anti-margin-bottom">URL</p>
+        <div class="url-box">
+          <%= text_url_to_link((h(@tweet.tweet_url).html_safe)).html_safe %>
+        </div>
+        <br>
+
+
+
+        <%# @tweet.body %>
+        <div class="Subheading">
+          <p class="user-show-h2">いいねしたユーザー</p>
+          <hr width="50%">
+        </div>
+        <% @tweet.liked_users.each do |user| %>
+          <% if user_signed_in? %>
+            <%= link_to user_path(user.id) ,class: 'anti-line user-icon' do %>
+              <% if user.image? %>
+                <%= image_tag user.image_url, size: '25x25', fallback: "no_image.png", class: "mb-3 profile-img" if user.image? %>
+              <% else %>
+                <%= image_tag "default.png", size: '25x25', class: "mb-3" %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= link_to new_user_session_path ,class: 'anti-line user-icon ' do%>
+              <% if user.image? %>
+                <%= image_tag user.image_url, size: '25x25', fallback: "no_image.png", class: "mb-3 profile-img" if user.image? %>
+              <% else %>
+                <%= image_tag "default.png", size: '25x25', class: "mb-3" %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <br>
+
+      <div class="comment-wrapper">
+      <div class="Subheading">
+          <p class="user-show-h2">コメント一覧</p>
+          <hr width="50%">
+      </div>
+      <br>
+      <% @comments.each do |c| %>
+        <div>
+            <% if user_signed_in? %>
+              <%= link_to user_path(c.user.id) ,class: 'anti-line user-icon' do %>
+                  <% if c.user.image? %>
+                    <%= image_tag c.user.image_url, size: '25x25', fallback: "no_image.png", class: "mb-3 profile-img" if c.user.image? %>
+                  <% else %>
+                    <%= image_tag "default.png", size: '25x25' %>
+                  <% end %>
+                  <span class="name-font-tweet">
+                  <%= c.user.name unless c.user.blank?%>
+                  </span>
+              <% end %>
+            <% else %>
+              <%= link_to new_user_session_path ,class: 'anti-line user-icon' do%>
+                  <% if c.user.image? %>
+                    <%= image_tag c.user.image_url, size: '25x25', fallback: "no_image.png", class: "mb-3 profile-img" if c.user.image? %>
+                  <% else %>
+                    <%= image_tag "default.png", size: '25x25' %>
+                  <% end %>
+                  <span class="name-font-tweet">
+                  <%= c.user.name unless c.user.blank?%>
+                  </span>
+              <% end %>
+            <% end %>
+
+          <%# c.user.email unless c.user.blank? %>
+          <br>
+          <%= c.content %>
+          <% if user_signed_in? && current_user.id == c.user_id %>
+            <%= link_to  comment_path(c.id), method: :delete ,class: 'anti-line' do %>
+              <i class="fas fa-trash-alt"></i>
+            <% end %>
+          <% end %>
+        </div>
+        <br>
+      <% end %>
+      <% if user_signed_in? %>
+        <%= form_with(model: [@tweet, @comment], local: true) do |f| %>
+          <%= f.text_area :content ,class:"form-size-1" %>
+          <br>
+          <%= button_tag type: "submit" ,class:"btn btn-border" do %>
+            <i class="far fa-comments"></i> コメントする
+          <% end %>
+        <% end %>
+
+      <% else %>
+        <br>
+        <div>
+          <%= link_to new_user_session_path ,class: 'btn btn-border' do%>
+            <i class="far fa-comments"></i> コメントする
+          <% end %>
+        </div>
+      <% end %>
+      </div>
+
+
+      <!--<p><%= @tweet.user.email %></p>-->
+      <%= link_to "PORTFOLIOに一覧に戻る",tweets_path ,class: 'anti-line' %>
+    </main>
+  </html>

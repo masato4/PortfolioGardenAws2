@@ -1,0 +1,26 @@
+<% visitor = notification.visitor %>
+<% visited = notification.visited %>
+<% if notification.checked == nil %>
+    <div>
+        <%= link_to user_path(visitor) ,class:"anti-line" do %>
+            <span class="user-icon">
+                <% if visitor.image? %>
+                    <%= image_tag visitor.image_url, size: '50x50', fallback: "no_image.png", class: "profile-img" if visitor.image? %>
+                <% else %>
+                    <%= image_tag "default.png", size: '50x50' , class: "profile-img"%>
+                <% end %>
+            </span>
+            <span class="name-font-tweet">
+            <%= visitor.name %>
+            </span>
+        <% end %>
+        <% if notification.action=='dm' %>
+        からDMが届いています
+        <% end %>
+        <%= link_to notification_path(notification.id),method: :put ,class:"anti-line" do%>
+            <i class="fas fa-trash-alt"></i>
+        <% end %>
+        <%# ↑この1行！！ %>
+        <hr width="30%">
+    </div>
+<% end %>

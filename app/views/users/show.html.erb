@@ -1,0 +1,280 @@
+<html>
+
+
+<main>
+  <!--<p>
+  <% if @user != current_user %>
+  <%= link_to "マイページへ", user_path(current_user.id) %>
+  <% end %>
+  </p>-->
+  <div class="user-page-flex1">
+    <section>
+      <p>
+      <h3 class="fw-light">
+        <div class="d-flex">
+          <span class="profile-icon">
+            <% if @user.image?  %>
+                <%= image_tag @user.image_url, size: '100x100', class: "mb-3 profile-img" if @user.image? %>
+            <% else %>
+              <%= image_tag "default.png", size: '100x100', class: "mb-3" %>
+            <% end %>
+          </span>
+        </div>
+        <%= @user.name %>
+        <% if @user == current_user %>
+          <%=link_to  notifications_path do%>
+            <i class="fas fa-bell"></i>
+          <% end %>
+        <% end %>
+      </h3>
+      </p>
+      <!--<p>メールアドレス : <%= @user.email %></p>-->
+      <section class="margin-bottom-1rem">
+      <div class="field">
+          <div>
+            <div>
+              <% if @user == current_user %>
+                <p class="lead text-muted"><%= current_user.email %></p>
+              <% else %>
+                <% if @user.is_followed_by?(current_user) %>
+                  <%=link_to user_relationships_path(@user), method: :delete do %>
+                    <button type="button" class="btn  btn-border">フォロー解除</button>
+                  <% end %>
+                <% else %>
+                  <%=link_to user_relationships_path(@user), method: :post do %>
+                    <button type="button" class="btn  btn-green">フォロー</button>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <p class="text-small"><%= link_to @user.followings.count, followings_user_path(@user) , class: 'anti-line'%> フォロー <%= link_to @user.followers.count, followers_user_path(@user) , class: 'anti-line' %> フォロワー</p>
+            </div>
+          </div>
+      </div>
+      <div class="box11">
+        <%= @user.profile %>
+      </div>
+      <% if current_user.id == @user.id %>
+      <%= button_to "プロフィール編集", edit_user_path(current_user) , method: :get, class: 'anti-line btn btn-border' %>
+      <% else %>
+        <% if @isRoom == true %>
+          <span><a href="/rooms/<%= @roomId %>">チャットへ</a></span>
+        <% else %>
+        <%= form_for @room do |f| %>
+          <%= fields_for @entry do |e| %>
+            <%= e.hidden_field :user_id, :value=> @user.id %>
+          <% end %>
+          <%= f.submit "チャットを始める", class:"btn btn-border mb-3" %>
+        <% end %>
+      <% end %>
+      <% end %>
+      </section>
+
+
+
+        <div class="Subheading">
+          <div class="user-show-h2">ユーザースキル</div>
+          <hr width="100%">
+        </div>
+        <div class="scroll">
+          <table class="SkillTable">
+            <thead>
+              <tr>
+                <th>言語&nbsp;</th>
+                <th>&nbsp;画像</th>
+                <th>rank</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @user.skills.each do |s| %>
+                <tr>
+                  <td>
+                    <%= s.language_name %></td>
+                  <td>
+                    <%= image_tag s.image_url, size: '50x50' if s.image? %>
+                  <td>
+                    <!-- <%= s.evaluation %> -->
+                    <div class="relative-post-evaluation">
+                      <span id="star-rate-<%= s.id %>"></span>
+                      <script>
+                        $('#star-rate-<%= s.id %>').empty();
+                        $('#star-rate-<%= s.id %>').raty({
+                          size: 36,
+                          starOff: "<%= asset_path('star-off.png') %>",
+                          starOn: "<%= asset_path('star-on.png') %>",
+                          starHalf: "<%= asset_path('star-half.png') %>",
+                          half: true,
+                          readOnly: true,
+                          score: <%= s.evaluation %>
+                        });
+                      </script>
+                    </div>
+                  </td>
+                  <td>
+                    <% if user_signed_in? && current_user.id == s.user_id %>
+                      <%= link_to "編集する", edit_skill_path(s.id), remote: true , class: 'anti-line'%>
+                      <div id="user-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+
+
+
+
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if user_signed_in? && current_user.id == s.user_id %>
+                      <%= link_to  skill_path(s.id), method: :delete , class: 'anti-line icon-effect-hidden' do%>
+                        <i class="fas fa-trash-alt"></i>
+
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+          </table>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <!--<% if current_user.id == @user.id %>
+          <%= link_to "スキル編集", skills_new_path(current_user) %>
+        <% end %>-->
+
+        <!-- Button trigger modal -->
+        <% if current_user.id == @user.id %>
+          <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-border mt-3">
+            Skill add
+          </button>
+        <% end %>
+
+        <!-- Modal -->
+        <%= form_for @skill do |f| %>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Skill add</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <%= f.label :language, class: "label" %>
+                  <%= f.text_field :language_name,class:"form-size-1" %>
+                </div>
+                <div class="form-group mb-3">
+                  <%= f.label :image, class: "label" %>
+                  <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png', id: "image-select-btn" %>
+                </div>
+                <div class="post-image-prev">
+                  <% if @skill.image? %>
+                    <%= image_tag @skill.image.url, alt: "post-image", id: "img_prev", size: "50" %>
+                  <% else %>
+                    <%= image_tag "post-default.png", alt: "post-image", id: :img_prev, size: "50" %>
+                  <% end %>
+                </div>
+                <%= f.label :evaluation, "星評価：" %>
+                <div class="field" id="star">
+                  <%= f.hidden_field :evaluation, id: :review_star %>
+                    <script>
+                      $('#star').empty();
+                      $('#star').raty({
+                        size     : 36,
+                        starOff:  '<%= asset_path('star-off.png') %>',
+                        starOn : '<%= asset_path('star-on.png') %>',
+                        starHalf: '<%= asset_path('star-half.png') %>',
+                        scoreName: 'skill[evaluation]',
+                        half: true,
+                      });
+                    </script>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-border" data-bs-dismiss="modal">Close</button>
+                <%= f.submit "登録", class:"btn btn-blue2"%>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+    </section>
+    <section class="user-bench">
+      <%= image_tag "bench.jpeg", alt: "post-image", id: :img_prev, size: "500x500",class:"hello-img"%>
+    </section>
+  </div>
+
+    <br>
+
+    <div class="Subheading2">
+      <div class="user-tab">
+        <div class="user-show-h2">投稿</div>
+        <span class="tab-line"></span>
+        <%= link_to likes_user_path(@user) , class: 'anti-line' do%>
+        <div class="user-show-h2 tab-hover">いいね</div>
+        <% end %>
+      </div>
+      <hr width="95%">
+    </div>
+    <div class="warapper grid-user">
+      <% if @user.tweets.count == 0 %>
+        <%= image_tag "post-default.png", alt: "post-image", id: :img_prev, size: "320x180"%>
+      <% end %>
+      <% @user.tweets.each do |t| %>
+      <div class="tweet">
+        <p>
+        <%= link_to tweet_path(t.id) do%>
+          <% if t.image?  %>
+            <span class="tweet-image-line">
+
+            <%= image_tag t.image_url, size: "320x180", class: 'image-down' if t.image? %>
+            </span>
+          <% else %>
+            <span class="tweet-image-line">
+              <%= image_tag "post-default.png", alt: "post-image", id: :img_prev, size: "320x180"%>
+            </span>
+          <% end %>
+        <% end %>
+        <br>
+        <% t.tags.each do |tag| %>
+          <span class="tag-element-border"><%= tag.name %></span>
+        <% end %>
+        <%= t.language %>
+        <% if user_signed_in? %>
+          <% if current_user.already_liked?(t) %>
+            <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete , class: 'anti-line' do %>
+                <i class="fas fa-heart"></i><%= t.likes.count %>
+            <% end %>
+          <% else %>
+            <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post , class: 'anti-line' do %>
+              <i class="far fa-heart"></i><%= t.likes.count %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <i class="far fa-heart"></i><%= t.likes.count %>
+        <% end %>
+        <br>
+        <!--<%= t.body %>-->
+        <%= t.created_at %>
+        <%= link_to "詳細",tweet_path(t.id) , class: 'anti-line'%>
+        <br>
+        <!--<% if user_signed_in? && current_user.id == t.user_id %>
+        <%= link_to "編集する", edit_tweet_path(t.id) %>
+        <%= link_to "削除する", tweet_path(t.id), method: :delete %>
+        <% end %>-->
+        </p>
+      </div>
+      <% end %>
+    </div>
+
+    <%= link_to "PORTFOLIO一覧", tweets_path , class: 'anti-line'%>
+</main>
+</html>

@@ -1,0 +1,76 @@
+  <html>
+    <!--<header class="page-header wrapper">
+      <%= link_to tweets_path do%>
+        <h1 class="after_login">PORTFOLIO GARDEN</h1>
+      <% end %>
+      <nav>
+        <ul class="main-nav">
+          <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+          <% if user_signed_in? %>
+          <li><%= link_to "POST", new_tweet_path %></li>
+          <li class="header-icon">
+          <%= link_to user_path(current_user.id) do %>
+            <% if current_user.image?  %>
+                <%= image_tag current_user.image_url, size: '50x50', fallback: "no_image.png", class: "mb-3 profile-img" if current_user.image? %>
+            <% else %>
+              <%= image_tag "default.png", size: '50x50' %>
+            <% end %>
+          <% end %>
+          </li>
+        </ul>
+        <% end %>
+      </nav>
+    </header>-->
+    <main>
+          <div class="tab-follow">
+
+            <span class="follow-font en-character">FOLLOWING</span>
+            <div class="tab-line"></div>
+            <%= link_to followers_user_path,class:'anti-line' do %>
+            <span class="follow-font en-character tab-hover">FOLLOWERS</span>
+            <% end %>
+          </div>
+          <table class="table follow-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td>
+                    <%= link_to user_path(user) ,class:'anti-line' do %>
+                    <span class="user-icon">
+                    <% if user.image? %>
+                      <%= image_tag user.image_url, size: '50x50', class: "profile-img" if user.image? %>
+                    <% else %>
+                      <%= image_tag "default.png", size: '50x50' %>
+                    <% end %>
+                    </span>
+                    <span class="name-font-tweet">
+                      <%= user.name %>
+                    </span>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if user != current_user %>
+                      <% if user.is_followed_by?(current_user) %>
+                        <%=link_to user_relationships_path(user), method: :delete do %>
+                          <button type="button" class="btn btn-border mt-2">フォロー解除</button>
+                        <% end %>
+                      <% else %>
+                        <%=link_to user_relationships_path(user), method: :post do %>
+                          <button type="button" class="btn btn-green mt-2">フォロー</button>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+      <%= link_to "ユーザーページに戻る",   user_profile_path,class:'anti-line' %>
+    </main>
+  </html>

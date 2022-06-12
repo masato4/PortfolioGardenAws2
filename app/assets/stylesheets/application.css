@@ -1,0 +1,626 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+/* 共通部分----------------- */
+.en-character {
+  font-family: 'Roboto',
+    sans-serif;
+}
+
+
+html {
+  font: size 100%;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+}
+
+body {
+  position: relative;
+  font-family: 'Roboto', "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", sans-serif;
+  line-height: 1.7;
+}
+
+.image-down {
+  object-fit: scale-down;
+}
+
+.anti-line {
+  text-decoration: none;
+}
+
+.anti-margin-bottom {
+  margin-bottom: 0;
+}
+
+.anti-margin-top {
+  margin-top: 0;
+}
+
+.name-font-tweet {
+  color: rgb(0, 0, 0);
+}
+
+
+
+.icon-effect-hidden {
+  overflow: hidden;
+}
+
+.icon-effect-hidden:hover img {
+  opacity: 0.6;
+}
+
+
+
+.form-size-1 {
+  width: 250px;
+  /*親要素いっぱい広げる*/
+  padding: 2px 10px;
+  /*ボックスを大きくする*/
+  border-radius: 3px;
+  /*ボックス角の丸み*/
+  border: 2px solid #ddd;
+  /*枠線*/
+  box-sizing: border-box;
+  /*横幅の解釈をpadding, borderまでとする*/
+}
+
+.form-size-2 {
+  width: 400px;
+  /*親要素いっぱい広げる*/
+  padding: 2px 10px;
+  /*ボックスを大きくする*/
+  border-radius: 3px;
+  /*ボックス角の丸み*/
+  border: 2px solid #ddd;
+  /*枠線*/
+  box-sizing: border-box;
+  /*横幅の解釈をpadding, borderまでとする*/
+}
+
+.form-size-3 {
+  width: 550px;
+  /*親要素いっぱい広げる*/
+  padding: 2px 10px;
+  /*ボックスを大きくする*/
+  border-radius: 3px;
+  /*ボックス角の丸み*/
+  border: 2px solid #ddd;
+  /*枠線*/
+  box-sizing: border-box;
+  /*横幅の解釈をpadding, borderまでとする*/
+}
+
+
+.margin-bottom-1rem {
+  margin-bottom: 25px;
+}
+
+
+/* button */
+input.btn-border {
+  border: 1.5px solid rgb(130, 130, 130);
+  border-radius: 5px;
+  background: #fff;
+  padding: 0px 2px;
+}
+
+input.btn-border:hover {
+  color: #fff;
+  background: rgb(130, 130, 130);
+}
+
+
+input.btn-blue {
+  border: 2px solid #ddd;
+  color: #FFFF;
+  border-radius: 5px;
+  background: #0d6efd;
+  padding: 4px 6px;
+}
+
+input.btn-blue:hover {
+  color: #fff;
+  background: rgb(130, 130, 130);
+}
+
+
+input.btn-blue2 {
+  border: 1.5px solid rgb(130, 130, 130);
+  color: #FFFF;
+  border-radius: 5px;
+  background: #0d6efd;
+  padding: 0px 2px;
+}
+
+input.btn-blue2:hover {
+  color: #fff;
+  background: rgb(130, 130, 130);
+}
+
+
+
+
+a.btn-border{
+    border: 1.5px solid rgb(130, 130, 130);
+      border-radius: 5px;
+      background: #fff;
+      padding: 0px 2px;
+}
+
+a.btn-border:hover {
+  color: #fff;
+  background: rgb(130, 130, 130);
+}
+
+
+button.btn-border {
+  border: 1.5px solid rgb(130, 130, 130);
+  border-radius: 5px;
+  background: #fff;
+  padding: 0px 2px;
+}
+
+button.btn-border:hover {
+  color: #fff;
+  background: rgb(130, 130, 130);
+}
+
+
+button.btn-green {
+  border: 1.5px solid rgb(130, 130, 130);
+  border-radius: 5px;
+  background: rgb(37, 95, 214);
+  color: rgb(255, 255, 255);
+  padding: 0px 2px;
+}
+
+button.btn-green:hover {
+  color: rgb(255, 255, 255);
+  background: rgb(130, 130, 130);
+}
+
+
+
+
+.tag-element-border {
+  border-radius: 3px;
+  border: 1px solid rgb(130, 130, 130);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  padding: 1px;
+}
+
+/* fade in-------------------- */
+.element {
+  /* 最初は非表示 */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px);
+  transition: opacity 1s, visibility 1s, transform 1s;
+}
+
+/* フェードイン時に入るクラス */
+.is-fadein {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+hr {
+  margin-top: 0%;
+}
+
+/* top-page------------------- */
+
+
+
+.japanese-title {
+  /* display: inline-block; */
+  font-family: "游ゴシック体", YuGothic, "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", sans-serif;
+  font-size: 50px;
+}
+
+.hello-img {
+  object-fit: cover;
+}
+
+.hello-text {
+  font-size: 18px;
+}
+
+
+.worry-part {
+  display: flex;
+}
+
+.worry-text {
+  margin-top: 150px;
+  font-size: 18px;
+}
+
+/* .title-section {
+  margin-left: 50px;
+} */
+
+.title-part {
+  display: flex;
+  margin-bottom: 100px;
+}
+
+.title-image {
+  margin-left: 0px;
+}
+
+/* .title-text-all {
+  margin-top: 100px;
+} */
+
+.title-text {
+  margin-top: 150px;
+  font-family: "didot";
+  font-size: 50px;
+}
+
+.plant-part {
+  display: flex;
+}
+
+.plant-text {
+  margin-top: 170px;
+  font-size: 18px;
+}
+
+/* ヘッダー--------------------- */
+
+
+header {
+  width: 100%;
+  background-color: rgba(237, 237, 237, 0.226);
+  height: 60px;
+  /* font-weight: bold; */
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  /* width: 100%; */
+}
+
+header a {
+  color: rgb(0, 0, 0);
+  font-family: "didot";
+  text-decoration: none;
+  font-weight: lighter;
+  padding-top: 10px;
+  font-size: 1.25rem;
+
+}
+
+header h1 {
+  margin-left: 20px;
+  color: rgb(0, 0, 0);
+  font-family: "didot";
+  font-weight: lighter;
+  font-size: 30px;
+}
+
+.after_login:hover {
+  color: #0bd;
+}
+
+.main-nav {
+  display: flex;
+  text-transform: uppercase;
+  /* margin-top: 5px; */
+  list-style: none;
+  margin-left: 50px;
+  align-items: center;
+  margin-right: 50px;
+  padding-top: 15px;
+
+}
+
+.main-nav li {
+  margin-left: 36px;
+}
+
+header a:hover {
+  color: #0bd;
+}
+
+.header-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  /* background-color: black; */
+}
+
+img {
+  cursor: pointer;
+}
+
+.header-icon:hover img {
+  opacity: 0.6;
+}
+
+.wrapper {
+  /* mask-border-width: 1100px; */
+  margin: 0 auto;
+  padding: 0 4%
+}
+
+/* index------------------------------- */
+.grid {
+  display: grid;
+  gap: 110px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  margin-top: 6%;
+  margin-bottom: 50px;
+}
+
+
+.user-icon img {
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid;
+  border-color: #acabab;
+}
+
+
+
+.user-icon:hover img {
+  opacity: 0.6;
+}
+
+.user-icon-default {
+  margin-bottom: 100px;
+  padding-bottom: 100px;
+}
+
+
+
+.tweet-image-line {
+  display: inline-block;
+  overflow: hidden;
+
+  /* width: 320px;
+  height: 180px; */
+  border: solid 0.5px rgb(161, 161, 161);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+
+}
+
+.tweet-image-line:hover img {
+  opacity: 0.6;
+}
+
+/* main---------------------- */
+main {
+  margin-left: 80px;
+  /* margin-top: 10px; */
+  margin-right: 80px;
+  height: auto;
+  /* header＋#mainの分下げる */
+  padding-top: 9vh;
+}
+
+main ul {
+  text-align: center;
+}
+
+
+
+
+/* tweet-------------------------------- */
+
+.body-design {
+  border: solid 0.5px rgb(161, 161, 161);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+  border-radius: 5px;
+  padding: 2px;
+
+
+
+  padding: 0.5em 1em;
+  color: #5d627b;
+  background: white;
+  max-width: 400px;
+  min-height: 300px;
+}
+
+
+
+/* user---------------------------------- */
+
+.fw-light {
+  line-height: 5px
+}
+
+.Subheading {
+  line-height: 16px
+}
+
+.Subheading2 {
+  line-height: 0px
+}
+
+.user-show-h2 {
+  font-family: 'Roboto', "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", sans-serif;
+  font-size: 30px;
+  margin-top: 1rem;
+
+}
+
+
+
+.user-page-flex1 {
+  display: flex;
+}
+
+.user-bench {
+  margin-top: 230px;
+  margin-left: 330px;
+}
+
+.grid-user {
+  display: grid;
+  gap: 110px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  margin-top: 6%;
+  margin-bottom: 50px;
+}
+
+.profile-icon img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid;
+  border-color: #bab9b9;
+}
+
+.paginate-2 {
+  text-align: center;
+  margin-left: 45%;
+
+}
+
+.box11 {
+  padding: 0.5em 1em;
+  margin: 1em 0;
+  color: #000000;
+  background: white;
+  /* border-top: solid 5px rgb(161, 161, 161); */
+  border: solid 0.5px rgb(161, 161, 161);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+  max-width: 500px;
+  min-height: 80px;
+}
+
+/* skill */
+
+.SkillTable {
+  border-collapse: separate;
+  border-spacing: 8px 0px;
+}
+
+
+
+.scroll {
+  height: 220px;
+  width: 450px;
+  overflow: auto;
+  border: solid 0.5px rgb(161, 161, 161);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+  padding: 0.5em 1em;
+  border-radius: 5px;
+}
+
+
+
+
+/* タブメニュー-------- */
+
+
+.user-tab {
+  display: flex;
+}
+
+.tab-line {
+  margin: 0 1rem;
+  width: 1px;
+  background-color: #000;
+  height: 30px;
+  display: inline-block;
+
+}
+
+.tab-hover {
+  color: rgb(220, 220, 220);
+}
+
+.tab-hover:hover {
+  color: #0bd;
+}
+
+/* footer---------------------------------------------------------------- */
+
+footer {
+  background: rgb(255, 255, 255);
+  text-align: center;
+  padding: 26px 0;
+}
+
+footer p {
+  color: rgb(0, 0, 0);
+  font-size: 0.875rem;
+}
+
+/* sample */
+
+
+
+
+
+.search-center {
+  text-align: center;
+}
+
+.select-language {
+  background-color: #0bd;
+}
+
+
+select {
+  background-color: #0d6efd;
+  padding: 6px;
+  color: #FFFF;
+  margin: 10px;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+}
+
+
+.text-search {
+  width: 250px;
+  /*親要素いっぱい広げる*/
+  padding: 0px 15px;
+  /*ボックスを大きくする*/
+  border-radius: 3px;
+  /*ボックス角の丸み*/
+  border: 2px solid #ddd;
+  /*枠線*/
+  box-sizing: border-box;
+  /*横幅の解釈をpadding, borderまでとする*/
+}
+
+#tag_id {}
+
+/* .sercherea {
+  display: flex;
+} */
+
+.url-box {
+  width: 400px;
+  border: solid 0.5px rgb(161, 161, 161);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+  padding: 0.5em 1em;
+  height: 45px;
+}

@@ -1,0 +1,144 @@
+<html>
+
+  <!--<header class="page-header wrapper">
+    <%= link_to tweets_path do%>
+      <h1 class="after_login">PORTFOLIO GARDEN</h1>
+    <% end %>
+
+    <nav>
+      <ul class="main-nav">
+        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+        <% if user_signed_in? %>
+        <li><%= link_to "POST", new_tweet_path %></li>
+        <li class="header-icon">
+        <%= link_to user_path(current_user.id) do %>
+          <% if current_user.image?  %>
+              <%= image_tag current_user.image_url, size: '50x50', fallback: "no_image.png", class: "mb-3 profile-img" if current_user.image? %>
+          <% else %>
+            <%= image_tag "default.png", size: '50x50' %>
+          <% end %>
+        <% end %>
+        </li>
+      </ul>
+      <% end %>
+    </nav>
+  </header>-->
+
+
+
+
+  <!--
+  <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
+    <%= text_field_tag :search %>
+    <%= submit_tag '検索する'  %>
+  <% end %>
+
+  <%= form_tag tweets_path, method: :get, class: 'boards__searchForm' do %>
+        <%= select_tag :tag_id,
+            options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+            {
+              prompt: 'タグで絞り込み検索',
+              #onchange: 'submit(this.form);'
+            }
+        %>
+        <%= submit_tag '検索する' %>
+  <% end %>
+  -->
+
+<main>
+<br>
+    <ul class="search-down">
+        <%= form_tag({controller:"tweets",action:"index"},method: :get)do %>
+          <%= text_field_tag :search ,{},class:"form-size-1"%>
+            <%= select_tag :tag_id,
+            options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+            {
+              prompt: 'タグで絞り込み',
+            }%>
+        <%= submit_tag '検索' , class: "btn btn-blue" %>
+      <% end %>
+    <br>
+    <%= page_entries_info @tweets %>
+    </ul>
+    <hr width="98%">
+    <div class="warapper grid">
+      <% @tweets.each do |t| %>
+        <div class="tweet">
+          <% if user_signed_in? %>
+            <%= link_to user_path(t.user.id) , class: 'anti-line' do %>
+              <% if t.user.image?  %>
+                <span class="user-icon">
+                  <%= image_tag t.user.image_url, size: '50x50', fallback: "no_image.png", class: "mb-3 profile-img" if t.user.image? %>
+                </span>
+              <% else %>
+                <span class="user-icon">
+                  <%= image_tag "default.png", size: '50x50',class: "mb-3" %>
+                </span>
+              <% end %>
+              <span class="name-font-tweet">
+              <%= t.user.name %>
+              </span>
+            <% end %>
+          <% else %>
+            <%= link_to new_user_session_path ,class: 'anti-line' do%>
+              <% if t.user.image?  %>
+                <span class="user-icon">
+                  <%= image_tag t.user.image_url, size: '50x50', fallback: "no_image.png", class: "mb-3 profile-img" if t.user.image? %>
+                </span>
+              <% else %>
+                <span class="user-icon">
+                  <%= image_tag "default.png", size: '50x50',class: "mb-3"  %>
+                </span>
+              <% end %>
+              <span class="name-font-tweet">
+              <%= t.user.name %>
+              </span>
+            <% end %>
+          <% end %>
+          <br>
+          <%= link_to tweet_path(t.id) do%>
+
+            <% if t.image?  %>
+              <span class="tweet-image-line">
+                <%= image_tag t.image_url, size: "320x180" , class: 'image-down'if t.image? %>
+              </span>
+            <% else %>
+              <span class="tweet-image-line">
+                <%= image_tag "post-default.png", alt: "post-image", id: :img_prev, size: "320x180"%>
+              </span>
+            <% end %>
+          <% end %>
+          <br>
+          <% t.tags.each do |tag| %>
+              <span class="tag-element-border"><%= tag.name %></span>
+          <% end %>
+          <%= t.language %>
+          <% if user_signed_in? %>
+              <% if current_user.already_liked?(t) %>
+                  <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete , class: 'anti-line' do %>
+                      <i class="fas fa-heart"></i><%= t.likes.count %>
+                  <% end %>
+              <% else %>
+                  <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post , class: 'anti-line' do %>
+                      <i class="far fa-heart"></i><%= t.likes.count %>
+                  <% end %>
+              <% end %>
+          <% else %>
+            <%= link_to new_user_session_path, class: 'anti-line' do%>
+              <i class="far fa-heart"></i><%= t.likes.count %>
+            <% end %>
+          <% end %>
+          <br>
+          <%= t.created_at %>
+          <%= link_to "詳細",tweet_path(t.id) , class: 'anti-line'%>
+        </div>
+      <% end %>
+    </div>
+    <hr width="98%">
+</main>
+<br>
+
+  <section class="paginate-2">
+      <%= paginate @tweets, theme: 'bootstrap-5' %>
+  </section>
+</html>

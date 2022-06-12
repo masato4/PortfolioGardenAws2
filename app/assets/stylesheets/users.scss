@@ -1,0 +1,47 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+// section
+.text-log {
+  width: 250px;
+  /*親要素いっぱい広げる*/
+  padding: 2px 10px;
+  /*ボックスを大きくする*/
+  border-radius: 3px;
+  /*ボックス角の丸み*/
+  border: 2px solid #ddd;
+  /*枠線*/
+  box-sizing: border-box;
+  /*横幅の解釈をpadding, borderまでとする*/
+}
+
+
+.follow-table {
+  max-width: 500px;
+}
+
+.tab-follow {
+  display: flex;
+}
+
+.follow-font {
+  margin-bottom: 0%;
+  font-size: 30px;
+}
+
+span a {
+  color: #000;
+  display: inline-block;
+  border-radius: 5px;
+  text-decoration: none;
+  border: 1.5px solid rgb(130, 130, 130);
+  background: #fff;
+  padding: 0px 2px;
+}
+
+span a:hover{
+    color: #fff;
+    background: rgb(130, 130, 130);
+}

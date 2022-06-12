@@ -1,0 +1,60 @@
+
+  <!--<html>
+    <main>
+      <h2>言語選択</h2>
+      <%= form_for (@skill, :remote=>true, :url=>{:controller=>"skills", :action=>"create"})  do |f| %>
+      <table>
+        <thead>
+          <tr>
+            <th>言語名</th>
+            <th>画像</th>
+            <th></th>
+            <th>rank</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>
+                <%= f.text_field :language_name %>
+              </td>
+              <td>
+
+                <div class="form-group">
+                  <%= f.label :image, class: "label" %>
+                  <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png', id: "image-select-btn" %>
+                </div>
+              </td>
+              <td>
+                <div class="post-image-prev">
+                  <% if @skill.image? %>
+                    <%= image_tag @skill.image.url, alt: "post-image", id: "img_prev", size: "50" %>
+                  <% else %>
+                    <%= image_tag "post-default.png", alt: "post-image", id: :img_prev, size: "50" %>
+                  <% end %>
+                </div>
+              </td>
+              <td>
+                <div class="field" id="star">
+                  <%= f.label :evaluation, "星評価：" %>
+                  <%= f.hidden_field :evaluation, id: :review_star %>
+                    <script>
+                      $('#star').raty({
+                        size     : 36,
+                        starOff:  '<%= asset_path('star-off.png') %>',
+                        starOn : '<%= asset_path('star-on.png') %>',
+                        starHalf: '<%= asset_path('star-half.png') %>',
+                        scoreName: 'skill[evaluation]',
+                        half: true,
+                      });
+                    </script>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+      </table>
+      <%= f.submit "登録" %>
+      <% end %>
+      <%= link_to "戻る", :back %>
+    </main>
+  </html>
+-->

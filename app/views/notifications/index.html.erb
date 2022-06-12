@@ -1,0 +1,11 @@
+<html>
+  <main>
+    <% notifications = @notifications.where.not(visitor_id: current_user.id) %>
+    <% if notifications.exists? %>
+        <%= render notifications %>
+    <% else %>
+        <p>通知はございません</p>
+    <% end %>
+    <%= link_to "マイページへ",user_path(current_user.id) ,class:"anti-line"%>
+  </main>
+</html>

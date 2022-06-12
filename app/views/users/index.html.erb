@@ -1,0 +1,54 @@
+
+<% if user_signed_in? %>
+<h2>Hello <%= current_user.email %></h2>
+  <% @users.each do |u| %>
+  <p><a href="/users/<%= u.id %>"><%= u.email %>さん</a></p>
+  <hr>
+  <% end %>
+
+  <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
+
+<% else %>
+  <%= link_to "ユーザーを登録する", new_user_registration_path %>
+  <br>
+  <%= link_to "ログインする", new_user_session_path %>
+<% end %>
+
+<div class="container marketing">
+  <div class="row d-flex justify-content-center">
+    <div class="col-10 mt-5">
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td>
+                <%= link_to user_path(user) do %>
+                  <%= user.name %>
+                <% end %>
+              </td>
+              <td>
+                <% if user != current_user %>
+                  <% if user.is_followed_by?(current_user) %>
+                    <%=link_to user_relationships_path(user), method: :delete do %>
+                      <button type="button" class="btn btn btn-danger">フォロー解除</button>
+                    <% end %>
+                  <% else %>
+                    <%=link_to user_relationships_path(user), method: :post do %>
+                      <button type="button" class="btn btn btn-primary">フォロー</button>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

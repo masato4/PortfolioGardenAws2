@@ -1,0 +1,77 @@
+<html>
+  <main>
+  <!--<header class="page-header wrapper">
+    <%= link_to tweets_path do%>
+      <h1 class="after_login">PORTFOLIO GARDEN</h1>
+    <% end %>
+
+    <nav>
+      <ul class="main-nav">
+        <% if user_signed_in? %>
+        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+        <li><%= link_to "POST", new_tweet_path %></li>
+        <li class="header-icon">
+        <%= link_to user_path(current_user.id) do %>
+          <% if current_user.image?  %>
+              <%= image_tag current_user.image_url, size: '50x50', fallback: "no_image.png", class: "mb-3 profile-img" if current_user.image? %>
+          <% else %>
+            <%= image_tag "default.png", size: '50x50' %>
+          <% end %>
+        <% end %>
+        </li>
+      </ul>
+      <% end %>
+    </nav>
+  </header>
+
+    <%= link_to "ログイン", tweets_path %>
+    <%= link_to "新規登録", new_user_registration_path %>-->
+
+
+    <section class="title-section">
+      <div class="title-part">
+        <div class="title-text-all">
+          <p class="title-text">PORTFOLIO GARDEN<p>
+          <p class="hello-text">駆け出しエンジニアが<br>
+          作品を通してつながる場所。</p>
+        </div>
+        <div class="title-image">
+          <%= image_tag "bench.jpeg", alt: "post-image", id: :img_prev, size: "700x700",class:"hello-img"%>
+        </div>
+      </div>
+    </section>
+
+    <section class="worry-section">
+    <div class="worry-part">
+      <div>
+        <%= image_tag "worry.jpeg", alt: "post-image", id: :img_prev, size: "800x800",class:"hello-img"%>
+      </div>
+      <div class="worry-text element">
+        <span class="japanese-title">1人で悩まないで</span>
+        <p class="hello-text">プログラミング学習はエラーで挫折してしまう<br>
+        そんな人のために PORTFOLIO GARDEN は作られました。<br>
+        サイトを通して出会った仲間と一緒にエンジニアへの<br>
+        一歩を踏み出しましょう。</p>
+      </div>
+    </section>
+
+    <section>
+
+      <div class="plant-part">
+        <div class="plant-text element">
+          <span class="japanese-title">みんなで育てる</span>
+          <p class="hello-text">
+          あなたは同世代や先輩たちの投稿を投稿を観ることが出来ます。<br>
+          あなたの投稿が同世代や後輩に勇気を与えます。<br>
+          一緒にエンジニアが駆け出すためのプラットフォームを<br>
+          作りませんか。
+          </p>
+        </div>
+        <div>
+          <%= image_tag "plant.jpeg", alt: "post-image", id: :img_prev, size: "800x800",class:"hello-img"%>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</html>

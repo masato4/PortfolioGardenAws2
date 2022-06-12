@@ -1,0 +1,74 @@
+  <html>
+    <!--<header class="page-header wrapper">
+      <%= link_to tweets_path do%>
+        <h1 class="after_login">PORTFOLIO GARDEN</h1>
+      <% end %>
+      <nav>
+        <ul class="main-nav">
+          <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+          <% if user_signed_in? %>
+          <li><%= link_to "POST", new_tweet_path %></li>
+          <li class="header-icon">
+          <%= link_to user_path(current_user.id) do %>
+            <% if current_user.image?  %>
+                <%= image_tag current_user.image_url, size: '50x50', fallback: "no_image.png", class: "mb-3 profile-img" if current_user.image? %>
+            <% else %>
+              <%= image_tag "default.png", size: '50x50' %>
+            <% end %>
+          <% end %>
+          </li>
+        </ul>
+        <% end %>
+      </nav>
+    </header>-->
+    <main>
+      </p>
+      <h3>DM</h3>
+      <% @entries.each do |e| %>
+      <a href="/users/<%= e.user.id %>" class="anti-line">
+        <span class="user-icon">
+        <% if e.user.image? %>
+          <%= image_tag e.user.image_url, size: '50x50', fallback: "no_image.png", class: "mb-3 profile-img" if e.user.image? %>
+        <% else %>
+          <%= image_tag "default.png", size: '50x50' %>
+        <% end %>
+        </span>
+        <span class="name-font-tweet">
+        <%= e.user.name %></a>
+        </span>
+      <% end %>
+      <hr>
+      <% if @messages.present? %>
+      <% @messages.each do |m| %>
+        <strong>
+          <% if m.user_id == current_user.id %>
+              <div class="current_user">
+                  <strong class="current_user"><%= m.content %></strong>
+                  <small class="current_user"><%= m.user.name %></small>
+                  <%= link_to  message_path(m.id), method: :delete , class: 'anti-line' do%>
+                    <i class="fas fa-trash-alt"></i>
+                  <% end %>
+              </div>
+          <% else %>
+              <div class="visited_user">
+                  <strong class="visited_user"><%= m.content %></strong>
+                  <small class="visited_user"><%= m.user.name %></small>
+              </div>
+          <% end %>
+
+        </strong>
+      <% end %>
+      <% else %>
+      <h3 class="text-center">メッセージはまだありません</h3>
+      <% end %>
+      <hr>
+      <%= form_for @message do |f| %>
+      <%= f.text_field :content, :placeholder => "メッセージを入力して下さい" , :size => 70 ,class:'form-size-2 mb-3'%>
+      <%= f.hidden_field :room_id, :value => @room.id %>
+      <br>
+      <%= f.submit "投稿する", class:"btn btn-border" %>
+      <% end %>
+      <br>
+      <!--<%= link_to "ユーザー一覧に戻る", users_path %>-->
+    </main>
+  </html>

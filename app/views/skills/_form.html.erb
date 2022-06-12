@@ -1,0 +1,52 @@
+
+<!--Modal -->
+<%= form_for @skill do |f| %>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Skill edit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <%= f.label :language, class: "label" %>
+          <%= f.text_field :language_name ,class:"form-size-1"%>
+        </div>
+        <!--<div class="field">
+          <%= f.label :image %>
+          <%= f.file_field :image %>
+        </div>-->
+        <div class="form-group mb-3">
+          <%= f.label :image, class: "label" %>
+          <%= f.file_field :image, accept: 'image/jpeg, image/gif, image/png', id: "image-select-btn" %>
+        </div>
+        <div class="post-image-prev">
+          <% if @skill.image? %>
+            <%= image_tag @skill.image.url, alt: "post-image", id: "img_prev", size: "50" %>
+          <% else %>
+            <%= image_tag "post-default.png", alt: "post-image", id: :img_prev, size: "50" %>
+          <% end %>
+        </div>
+        <div class="field" id="star">
+          <%= f.label :evaluation, "星評価：" %>
+          <%= f.hidden_field :evaluation, id: :review_star %>
+            <script>
+              $('#star').raty({
+                size     : 36,
+                starOff:  '<%= asset_path('star-off.png') %>',
+                starOn : '<%= asset_path('star-on.png') %>',
+                starHalf: '<%= asset_path('star-half.png') %>',
+                score: <%= @skill.evaluation %>, //scoreオプションで最初の評価内容を取得
+                scoreName: 'skill[evaluation]',//scoreNameオプションで、新たに評価を保存
+                half: true,
+              });
+            </script>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-border" data-bs-dismiss="modal">Close</button>
+        <%= f.submit "編集", class:"btn btn-blue2"%>
+      </div>
+    </div>
+  </div>
+<% end %>

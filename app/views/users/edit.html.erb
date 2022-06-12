@@ -1,0 +1,63 @@
+  <html>
+
+    <main>
+      <h2>プロフィール編集</h2>
+      <%= form_with model: @user do |form| %>
+        <!--<div class="field">
+          <%= form.label :image %><br/>
+          <%= form.file_field :image %>
+        </div>-->
+
+
+        <div class="form-group mb-3">
+          <%= form.label :image %><br/>
+          <%= form.file_field :image, accept: 'image/jpeg, image/gif, image/png', id: "image-select-btn" %>
+        </div>
+        <div class="post-image-prev">
+          <span class="profile-icon">
+            <% if @user.image? %>
+              <%= image_tag @user.image.url, alt: "post-image", id: "img_prev", size: "100x100" %>
+            <% else %>
+              <%= image_tag "default.png", size: '100x100' %>
+            <% end %>
+          </span>
+        </div>
+
+        <br>
+
+
+
+
+        <!--アカウント編集時に名前を入力できるようにフォームを追加-->
+        <div class="field">
+          <%= form.label :name %><br />
+          <%# form.text_field :name, autofocus: true %>
+        </div>
+
+        <div>
+          <%= form.text_field :name, autofocus: true, class:'form-size-1 mb-3' %>
+        </div>
+
+
+
+        <div class="field">
+          <%= form.label :email %><br />
+          <%# form.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+
+        <div>
+          <%= form.email_field :email, autofocus: true, autocomplete: "email",class:'form-size-1 mb-3'%>
+        </div>
+        <!--アカウント編集時にプロフィールを入力できるようにフォームを追加-->
+
+        <div>
+          <%= form.label :profile %>
+          <br>
+          <%= form.text_area :profile, autofocus: true, maxlength: "200", placeholder: "紹介文を書く", class:'form-size-3 mb-3' %>
+        </div>
+
+        <div class="mb-3"><%= form.submit "保存" %></div>
+      <% end %>
+      <%= link_to "戻る", :back %>
+    </ main>
+  </html>
